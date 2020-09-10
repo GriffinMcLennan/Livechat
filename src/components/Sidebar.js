@@ -9,8 +9,8 @@ import CasinoIcon from '@material-ui/icons/Casino';
 
 /* `https://avatars.dicebear.com/api/human/${seed}.svg` */
 
-function Sidebar({onClick}) {
-    const [{user: username}, dispatch] = useStateValue();
+function Sidebar({ onClick }) {
+    const [{ user: username }, dispatch] = useStateValue();
     const [searchUser, setSearchUser] = useState('');
     const [users, setUsers] = useState([]);
     const [searchUsers, setSearchUsers] = useState([]);
@@ -25,7 +25,7 @@ function Sidebar({onClick}) {
         const unsub2 = db.collection('Users').doc(username).onSnapshot(doc => {
             setUserPhoto(doc.data().photoURL);
         })
-        return() => {
+        return () => {
             unsub1();
             unsub2();
         }
@@ -43,35 +43,35 @@ function Sidebar({onClick}) {
 
         db.collection('Users').doc(username).set({
             photoURL: `https://avatars.dicebear.com/api/human/${seed}.svg`,
-        }, {merge: true});
+        }, { merge: true });
     }
 
     return (
         <div className="sidebar">
             <div className="sidebar__header">
                 <div className="sidebar__headerInfo">
-                    <Avatar src={`${userPhoto}`}/>
+                    <Avatar src={`${userPhoto}`} />
                     <p>{username}</p>
                 </div>
 
                 <CasinoIcon onClick={genNewPhoto} />
             </div>
-            
+
             <div className="sidebar__search">
                 <div className="search__container">
                     <SearchOutlined />
-                    <input placeholder="Search for a User" type="text" onChange={(e) => setSearchUser(e.target.value)}/>
+                    <input placeholder="Search for a User" type="text" onChange={(e) => setSearchUser(e.target.value)} />
                 </div>
             </div>
 
             <div className="sidebar__users">
-            {
-                searchUsers.map(user => (
-                    <UserTile key={user.username} user={user} onClick={onClick}/>
-                ))
-            }
+                {
+                    searchUsers.map(user => (
+                        <UserTile key={user.username} user={user} onClick={onClick} />
+                    ))
+                }
             </div>
-            
+
         </div>
     )
 }

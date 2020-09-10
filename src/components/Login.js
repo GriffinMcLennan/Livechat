@@ -7,7 +7,7 @@ import { actionTypes } from '../reducer';
 import db from '../firebase';
 
 function Login() {
-    const [{user}, dispatch] = useStateValue();
+    const [{ user }, dispatch] = useStateValue();
     const [input, setInput] = useState('');
 
     const signIn = (e) => {
@@ -21,23 +21,23 @@ function Login() {
         db.collection('Users').doc(input).set({
             username: input,
         }, { merge: true });
-        
+
     }
 
     return (
         <div className="container">
             <div className="container__box">
                 <h1>Livechat</h1>
-                
+
                 <div className="signin">
                     <form noValidate autoComplete="off" onSubmit={(e) => signIn(e)}>
-                        <TextField id="standard-basic" label="Name:" onChange={(e) => setInput(e.target.value)}/>
-                    </form>  
+                        <TextField id="standard-basic" label="Name:" onChange={(e) => setInput(e.target.value)} />
+                    </form>
 
                     <Button onClick={(e) => signIn(e)}>Sign in</Button>
-                </div>  
+                </div>
             </div>
-            
+
         </div>
     )
 }

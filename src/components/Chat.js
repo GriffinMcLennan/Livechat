@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Chat.css';
 import db from '../firebase';
-import { useStateValue } from '../StateProvider'; 
+import { useStateValue } from '../StateProvider';
 import Message from './Message';
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,7 +10,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Avatar } from '@material-ui/core';
 
 function Chat({ selectedUser }) {
-    const [{user: username}, dispatch] = useStateValue();
+    const [{ user: username }, dispatch] = useStateValue();
     const [info, setInfo] = useState([]);
     const [input, setInput] = useState('');
     const [selectedUserPhoto, setSelectedUserPhoto] = useState('');
@@ -18,7 +18,7 @@ function Chat({ selectedUser }) {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({behavior: "smooth"});
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
 
     useEffect(scrollToBottom, [info]);
@@ -58,7 +58,7 @@ function Chat({ selectedUser }) {
                         lastSeenInd = i;
                     }
 
-                    tmpInfo.push({message, sender, timestamp});
+                    tmpInfo.push({ message, sender, timestamp });
                 }
 
                 if (lastSeenInd !== -1) {
@@ -67,7 +67,7 @@ function Chat({ selectedUser }) {
                 else {
                     setLastSeen('Not seen recently');
                 }
-                
+
                 setInfo(tmpInfo);
             });
         }
@@ -82,7 +82,7 @@ function Chat({ selectedUser }) {
 
         })
 
-        return() => {
+        return () => {
             if (unsub1) {
                 unsub1();
             }
@@ -115,7 +115,7 @@ function Chat({ selectedUser }) {
             let docKey = getKey(username, selectedUser);
             let ref = await db.collection('Chats').doc(docKey).get();
             let oldData = ref.data();
-            
+
             let messages = oldData.messages;
             let senders = oldData.senders;
             let timestamps = oldData.timestamps;
@@ -123,18 +123,18 @@ function Chat({ selectedUser }) {
             messages.push(input);
             senders.push(username);
             timestamps.push(getDateTime());
-            
+
             db.collection('Chats').doc(docKey).set({
                 messages: messages,
                 senders: senders,
                 timestamps: timestamps,
             });
-            
+
         }
 
         updateChat();
         setInput('');
-        
+
     }
 
     const getDateTime = () => {
@@ -159,7 +159,7 @@ function Chat({ selectedUser }) {
         if (hours === 0) {
             hours = 12;
         }
-        
+
         let minutes = padTime(today.getMinutes());
         let seconds = padTime(today.getSeconds());
         let time = hours + ":" + minutes + ":" + seconds + ampm;
@@ -177,27 +177,27 @@ function Chat({ selectedUser }) {
     return (
         <div className="chat">
             <div className="chat__header">
-                    {
-                        selectedUser ? (
-                            <div className="selectedUser__info">
-                                <Avatar src={`${selectedUserPhoto}`} />
-                                <h1>{selectedUser}</h1>
-                            
-                                {
-                                    lastSeen === 'Not seen recently' || lastSeen === '' ? (
-                                        <h4>{lastSeen}</h4>
-                                    ) : (
+                {
+                    selectedUser ? (
+                        <div className="selectedUser__info">
+                            <Avatar src={`${selectedUserPhoto}`} />
+                            <h1>{selectedUser}</h1>
+
+                            {
+                                lastSeen === 'Not seen recently' || lastSeen === '' ? (
+                                    <h4>{lastSeen}</h4>
+                                ) : (
                                         <h4>Last seen at: {lastSeen} </h4>
                                     )
-                                }
+                            }
 
-                            </div>
-                        ) : (
-                            <div className="selectedUser__info"/>
+                        </div>
+                    ) : (
+                            <div className="selectedUser__info" />
                         )
-                    }
+                }
             </div>
-            
+
             <div className="chat__messages">
                 {
                     info.map(tuple => (
@@ -210,25 +210,25 @@ function Chat({ selectedUser }) {
             <div className="chat__input">
                 <form className="chat__form" onSubmit={(e) => sendMessage(e)}>
                     <FormControl className="chat__formControl">
-                        <TextField 
+                        <TextField
                             className="chat__textField"
-                            style={{width: 300, marginTop: "auto"}}
-                            value={input} 
-                            placeholder="Enter a message" 
-                            type="text" 
+                            style={{ width: 300, marginTop: "auto" }}
+                            value={input}
+                            placeholder="Enter a message"
+                            type="text"
                             onChange={(e) => setInput(e.target.value)}
                         />
 
-                        <IconButton 
+                        <IconButton
                             className="chat__iconButton"
                             disabled={!input}
                             variant="contained"
                             color="primary"
                             onClick={(e) => sendMessage(e)}>
-                                <SendIcon />
+                            <SendIcon />
                         </IconButton>
                     </FormControl>
-                    
+
                 </form>
             </div>
         </div>
