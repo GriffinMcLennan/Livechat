@@ -1,0 +1,45 @@
+.message {
+    position: relative;
+    padding-top: 10px;
+    display: flex;
+}
+
+.message__sender {
+    position: relative;
+    padding: 8px;
+    margin: 8px;
+    border-radius: 5px;
+    background-color: lightgray;
+    width: fit-content;
+}
+
+.message__receiver {
+    background-color: lightblue;
+    margin-left: auto;
+}
+
+.message__from {
+    position: absolute;
+    top: -15px;
+    font-weight: 800;
+    font-size: xx-small;
+}
+
+.message__content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.message__content > p {
+    max-width: 15vw;
+    overflow-wrap: break-word;
+}
+
+.message__timestamp {
+    display: flex;
+    padding-left: 50px;
+    font-size: small;
+    place-items: center;
+    color: lightslategray; 
+}
+

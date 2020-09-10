@@ -1,0 +1,33 @@
+.container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: deepskyblue;
+}
+
+.container__box {
+    padding: 150px;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12)
+}
+
+.container__box > h1 {
+    font-weight: 300;
+    font-size: 50px;
+}
+
+.signin {
+    display: flex;
+    margin-top: 40px;
+}
+
+.signin > Button {
+    margin-top: 5px;
+    color: white;
+    background-color:black !important;
+    text-transform: inherit !important;
+    margin-left: 10px;
+}

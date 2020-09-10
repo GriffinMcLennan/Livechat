@@ -1,0 +1,15 @@
+.usertile{
+    padding: 10px;
+    border-bottom: 1px solid black;
+    align-content: center;
+    text-align: left;
+}
+
+.usertile:hover {
+    background-color: gray;
+    transition: ease-out 0.5s;
+}
+
+.usertile > h1 {
+    font-weight: 100;
+}
